@@ -1,7 +1,7 @@
 .global _start
 // Reserve space for buffer
 .section .data
-.org 0x00000200 // Ensure buffer is in a safe memory area
+.org 0x00001024 // Ensure buffer is in a safe memory area
 .align 2
 buffer: .space 128      // 128-byte global buffer, zero-initialized
 not_palindrome_str:      .asciz "Not a palindrome"
