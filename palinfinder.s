@@ -1,13 +1,15 @@
 .global _start
-// Reserve space for buffer
 .section .data
 .org 0x00001024 // Ensure buffer is in a safe memory area
 .align 2
-buffer: .space 128      // 128-byte global buffer, zero-initialized
+buffer: 				 .space 128      // 128-byte global buffer, zero-initialized
 not_palindrome_str:      .asciz "Not a palindrome"
 palindrome_str:          .asciz "String is a Palindrome"
 input_not_valid_str:   	 .asciz "Input string too short"
 input:   				 .asciz "Grav ned den varg"
+
+
+
 
 
 .text
@@ -73,7 +75,7 @@ skip_r4_char_wildcard:
 skip_r5_char_space:
 	sub r5, r5, #1          // Decrement end index
 	b check_character_loop  // Repeat
-skip_r5_chars_wildcard:
+skip_r5_char_wildcard:
 	add r4, r4, #1		  // Increment start index
 	sub r5, r5, #1          // Decrement end index
 	b check_character_loop  // Repeat
@@ -82,6 +84,10 @@ not_palindrome:
 palindrome_check_done:
 	mov r0, r6              // Move result to r0
 	ldmfd sp!, {r4-r11, pc} // Restore old registers and return (sp = sp + 36)
+
+
+
+
 
 
 
@@ -213,6 +219,9 @@ wait_uart_ready:
 	ldmfd sp!, {r4-r11, pc} // Restore old registers and return (sp = sp + 36)
 
 
+
+
+
 /*
     subroutine to overwrite the buffer with null characters
 	argument: r0 = pointer to buffer
@@ -295,7 +304,6 @@ _end:
 
 _end_input_invalid:
 	mov r0, r11             // r0 = pointer to buffer
-
 	bl  print_buffer        // print the buffer
 	mov r0, #2      		// r0 = 2 to turn off all LEDs
 	bl turn_on_leds        // turn off all LEDs
